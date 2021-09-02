@@ -28,7 +28,7 @@
 #include <media/stagefright/MetaDataBase.h>
 #include <MetaDataUtils_MTK.h>
 #include <utils/String8.h>
-#include <cutils/log.h>
+#include <log/log.h>
 
 #define FLV_DIRECT_SEEK_SUPPORT
 #ifdef FLV_DIRECT_SEEK_SUPPORT

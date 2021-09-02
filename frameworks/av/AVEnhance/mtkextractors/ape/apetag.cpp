@@ -28,7 +28,7 @@
 #include <byteswap.h>
 
 
-#include <cutils/log.h>
+#include <log/log.h>
 
 #undef LOGV
 #undef LOGD

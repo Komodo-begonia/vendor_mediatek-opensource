@@ -33,7 +33,7 @@
 #include "byteio.h"
 #endif
 
-#include <cutils/log.h>
+#include <log/log.h>
 //#undef LOG_TAG
 //#define LOG_TAG "AsfParser"
 //----------------------------------------------------------------------

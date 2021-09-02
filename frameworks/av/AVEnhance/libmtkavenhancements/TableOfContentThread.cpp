@@ -28,7 +28,7 @@
 
 #include <pthread.h>
 #include <sched.h>
-#include <cutils/log.h>
+#include <log/log.h>
 
 #define ENABLE_TOC_DBUGLOG
 
