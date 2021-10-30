@@ -130,7 +130,7 @@ cc_library_shared {
 
     include_dirs: [
         "vendor/mediatek/opensource/external/aee/binary/inc",
-        "system/core/libunwindstack/include"
+        "system/unwinding/libunwindstack/include"
     ],
 
     local_include_dirs: ["include"],

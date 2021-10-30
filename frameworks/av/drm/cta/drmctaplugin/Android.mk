@@ -23,7 +23,7 @@ LOCAL_C_INCLUDES += \
     $(LOCAL_PATH)/include \
     external/libxml2/include \
     bionic \
-    system/core/base/include
+    system/libbase/include
 
 LOCAL_SHARED_LIBRARIES := \
     libandroidicu \

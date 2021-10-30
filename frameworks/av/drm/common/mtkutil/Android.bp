@@ -42,7 +42,7 @@ cc_library_shared {
         "external/libvpx/libwebm/mkvparser",
         "external/libxml2/include",
         "bionic",
-        "system/core/base/include",
+        "system/libbase/include",
     ],
     local_include_dirs: [
         "include",

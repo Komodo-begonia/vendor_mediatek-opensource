@@ -18,7 +18,7 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_C_INCLUDES := \
     vendor/mediatek/opensource/external/audio_utils/common_headers/ \
     frameworks/av/media/libaudioclient/include/media/ \
-    system/core/base/include
+    system/libbase/include
 
 LOCAL_CFLAGS := -DSYS_IMPL
 

@@ -17,7 +17,7 @@ cc_library_shared {
 	"vendor/mediatek/opensource/frameworks/av/AVEnhance/libmtkavenhancements",
 	"vendor/mediatek/opensource/frameworks/av/AVEnhance/libavextensions",
         "frameworks/av/media/libstagefright",
-        "system/core/base/include",
+        "system/libbase/include",
         "frameworks/av/include",
         "frameworks/av/include/media",
         "frameworks/av/media/libstagefright/include",
