@@ -34,3 +34,7 @@ PRODUCT_PACKAGES += \
     vendor.mediatek.hardware.dfps@1.0-service \
     vendor.mediatek.hardware.mtkpower@1.0-impl \
     vendor.mediatek.hardware.mtkpower@1.0-service
+
+# Build aosp 7.0 audio utill // Drop it once we switch to audio 7.0 mtk impl //
+PRODUCT_PACKAGES += \
+    android.hardware.audio.common@7.0-util

@@ -33,6 +33,7 @@
 #include <hidl/MQDescriptor.h>
 
 #include <VersionUtils.h>
+#include <util/CoreUtils.h>
 
 #include <vendor/mediatek/hardware/audio/6.1/IAudioParameterChangedCallback.h>
 #include <vendor/mediatek/hardware/audio/6.1/IMTKPrimaryDevice.h>
@@ -49,10 +50,10 @@ using ::android::hardware::hidl_string;
 using ::android::hardware::hidl_vec;
 using ::android::hardware::Return;
 using ::android::hardware::Void;
-using ::android::hardware::audio::common::CPP_VERSION::implementation::AudioInputFlagBitfield;
-using ::android::hardware::audio::common::CPP_VERSION::implementation::AudioOutputFlagBitfield;
 using namespace ::android::hardware::audio::common::CPP_VERSION;
 using namespace ::android::hardware::audio::CPP_VERSION;
+using AudioInputFlags = CoreUtils::AudioInputFlags;
+using AudioOutputFlags = CoreUtils::AudioOutputFlags;
 
 using ::vendor::mediatek::hardware::audio::V6_1::IAudioParameterChangedCallback;
 using ::vendor::mediatek::hardware::audio::V6_1::IMTKPrimaryDeviceCallback;
@@ -75,28 +76,36 @@ struct Device : public IDevice, public ParametersUtil {
     std::tuple<Result, sp<IStreamOut>> openOutputStreamImpl(int32_t ioHandle,
                                                             const DeviceAddress& device,
                                                             const AudioConfig& config,
-                                                            AudioOutputFlagBitfield flags,
+                                                            const AudioOutputFlags& flags,
                                                             AudioConfig* suggestedConfig);
     std::tuple<Result, sp<IStreamIn>> openInputStreamImpl(
-        int32_t ioHandle, const DeviceAddress& device, const AudioConfig& config,
-        AudioInputFlagBitfield flags, AudioSource source, AudioConfig* suggestedConfig);
-#if MAJOR_VERSION == 2
+            int32_t ioHandle, const DeviceAddress& device, const AudioConfig& config,
+            const AudioInputFlags& flags, AudioSource source, AudioConfig* suggestedConfig);
+
     Return<void> openOutputStream(int32_t ioHandle, const DeviceAddress& device,
-                                  const AudioConfig& config, AudioOutputFlagBitfield flags,
-                                  openOutputStream_cb _hidl_cb) override;
-    Return<void> openInputStream(int32_t ioHandle, const DeviceAddress& device,
-                                 const AudioConfig& config, AudioInputFlagBitfield flags,
-                                 AudioSource source, openInputStream_cb _hidl_cb) override;
-#elif MAJOR_VERSION >= 4
-    Return<void> openOutputStream(int32_t ioHandle, const DeviceAddress& device,
-                                  const AudioConfig& config, AudioOutputFlagBitfield flags,
-                                  const SourceMetadata& sourceMetadata,
-                                  openOutputStream_cb _hidl_cb) override;
-    Return<void> openInputStream(int32_t ioHandle, const DeviceAddress& device,
-                                 const AudioConfig& config, AudioInputFlagBitfield flags,
-                                 const SinkMetadata& sinkMetadata,
-                                 openInputStream_cb _hidl_cb) override;
+                                  const AudioConfig& config,
+#if MAJOR_VERSION <= 6
+                                  AudioOutputFlags flags,
+#else
+                                  const AudioOutputFlags& flags,
 #endif
+#if MAJOR_VERSION >= 4
+                                  const SourceMetadata& sourceMetadata,
+#endif
+                                  openOutputStream_cb _hidl_cb) override;
+    Return<void> openInputStream(int32_t ioHandle, const DeviceAddress& device,
+                                 const AudioConfig& config,
+#if MAJOR_VERSION <= 6
+                                 AudioInputFlags flags,
+#else
+                                 const AudioInputFlags& flags,
+#endif
+#if MAJOR_VERSION == 2
+                                 AudioSource source,
+#elif MAJOR_VERSION >= 4
+                                 const SinkMetadata& sinkMetadata,
+#endif
+                                 openInputStream_cb _hidl_cb) override;
 
     Return<bool> supportsAudioPatches() override;
     Return<void> createAudioPatch(const hidl_vec<AudioPortConfig>& sources,
@@ -141,6 +150,8 @@ struct Device : public IDevice, public ParametersUtil {
     void closeOutputStream(audio_stream_out_t *stream);
     audio_hw_device_mtk_t *device() const { return mDevice; }
 
+    uint32_t version() const { return mDevice->common.version; }
+
     Return<Result> setupParametersCallback(const sp<IMTKPrimaryDeviceCallback> &callback);
     Return<Result> setAudioParameterChangedCallback(const sp<IAudioParameterChangedCallback>& callback);
     Return<Result> clearAudioParameterChangedCallback();
@@ -156,12 +167,14 @@ struct Device : public IDevice, public ParametersUtil {
     std::tuple<Result, AudioPatchHandle> createOrUpdateAudioPatch(
             AudioPatchHandle patch, const hidl_vec<AudioPortConfig>& sources,
             const hidl_vec<AudioPortConfig>& sinks);
+    template <typename HalPort>
+    Return<void> getAudioPortImpl(const AudioPort& port, getAudioPort_cb _hidl_cb,
+                                  int (*halGetter)(audio_hw_device_t*, HalPort*),
+                                  const char* halGetterName);
 
     // Methods from ParametersUtil.
     char* halGetParameters(const char* keys) override;
     int halSetParameters(const char* keysAndValues) override;
-
-    uint32_t version() const { return mDevice->common.version; }
 
     sp<IMTKPrimaryDeviceCallback> mCallback;
     sp<IAudioParameterChangedCallback> mAudioParameterChangedCallback;
