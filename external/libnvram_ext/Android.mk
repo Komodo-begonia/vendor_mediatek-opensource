@@ -14,10 +14,10 @@ LOCAL_HEADER_LIBRARIES := \
 	libnvram_headers \
 	libfile_op_headers
 
-# pass the include path of system/core/include/private/android_filesystem_config.h
-LOCAL_C_INCLUDES += system/core/include/private
+# pass the include path of system/core/libcutils/include/private/android_filesystem_config.h
+LOCAL_C_INCLUDES += system/core/libcutils/include
 LOCAL_C_INCLUDES:= \
-    system/core/include/private \
+    system/core/libcutils/include \
     system/core/fs_mgr/include_fstab/fstab \
     vendor/mediatek/opensource/custom/common/cgen \
     vendor/mediatek/opensource/custom/common/cgen/inc \

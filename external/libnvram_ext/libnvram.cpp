@@ -33,7 +33,7 @@
 #include "libfile_op.h"
 #include <mtd/mtd-abi.h>
 
-#include "android_filesystem_config.h"
+#include "private/android_filesystem_config.h"
 #include <pthread.h>
 //add for log
 #include <time.h>

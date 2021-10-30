@@ -8,7 +8,7 @@ LOCAL_SRC_FILES:= \
 LOCAL_C_INCLUDES:=\
 	vendor/mediatek/opensource/external/nvram/libnvram \
 	vendor/mediatek/opensource/external/nvram/libfile_op \
-  system/core/include/private
+  system/core/libcutils/include
 
 LOCAL_MODULE:=libfile_op
 LOCAL_PROPRIETARY_MODULE := true
