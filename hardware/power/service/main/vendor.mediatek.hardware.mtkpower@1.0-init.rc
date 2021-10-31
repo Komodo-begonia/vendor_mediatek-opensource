@@ -148,6 +148,10 @@ on post-fs-data
     chmod 0664 /proc/perfmgr/syslimiter/syslimiter_force_disable
     chown system system /proc/perfmgr/syslimiter/syslimiter_tolerance_percent
     chmod 0664 /proc/perfmgr/syslimiter/syslimiter_tolerance_percent
+    chown system system /proc/perfmgr/smart/smart_turbo_support
+    chmod 0660 /proc/perfmgr/smart/smart_turbo_support
+    chown system system /d/ged/hal/total_gpu_freq_level_count
+    chmod 0666 /d/ged/hal/total_gpu_freq_level_count
 
 # GED, GPU
     chown system system /sys/module/ged/parameters/gx_top_app_pid
@@ -282,6 +286,8 @@ on post-fs-data
     chmod 0664 /sys/module/xgf/parameters/xgf_spid_ck_period
     chown system system /sys/kernel/fpsgo/common/fpsgo_enable
     chmod 0664 /sys/kernel/fpsgo/common/fpsgo_enable
+    chown system system /sys/kernel/fpsgo/eara/ai_bench
+    chmod 0664 /sys/kernel/fpsgo/eara/ai_bench
     chown system system /sys/kernel/fpsgo/common/perfserv_ta
     chmod 0660 /sys/kernel/fpsgo/common/perfserv_ta
 
