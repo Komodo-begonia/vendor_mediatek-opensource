@@ -16,7 +16,7 @@ LOCAL_C_INCLUDES = \
     hardware/libhardware_legacy/include \
     hardware/libhardware/include \
     vendor/mediatek/opensource/hardware/ccci/include \
-    vendor/mediatek/opensource/system/netdagent/include
+    vendor/mediatek/opensource/external/thermal/netdagent/include
 
 LOCAL_INIT_RC := init.thermal.rc
 LOCAL_SHARED_LIBRARIES := libcutils libc libifcutils_mtk libdl liblog
