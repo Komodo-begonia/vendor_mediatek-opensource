@@ -27,14 +27,8 @@ PRODUCT_PACKAGES += \
     libaudioprimarydevicehalifclient \
     vendor.mediatek.hardware.dfps@1.0-impl \
     vendor.mediatek.hardware.power@2.1-impl \
-    android.hardware.audio.service.mediatek \
-    android.hardware.audio@6.0-impl-mediatek \
     android.hardware.power@1.3-impl-mediatek \
     android.hardware.usb@1.1-service-mediatek \
     vendor.mediatek.hardware.dfps@1.0-service \
     vendor.mediatek.hardware.mtkpower@1.0-impl \
     vendor.mediatek.hardware.mtkpower@1.0-service
-
-# Build aosp 7.0 audio utill // Drop it once we switch to audio 7.0 mtk impl //
-PRODUCT_PACKAGES += \
-    android.hardware.audio.common@7.0-util
