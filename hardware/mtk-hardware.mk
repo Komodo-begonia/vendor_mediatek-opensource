@@ -14,6 +14,7 @@ PRODUCT_PACKAGES += \
     libccci_util \
     libfpspolicy \
     power.default \
+    thermal.beanpod \
     powerscntbl.xml \
     libmtkperf_client \
     powercontable.xml \
