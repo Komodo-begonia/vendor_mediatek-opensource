@@ -33,7 +33,7 @@ ifeq ($(MTK_CONSYS_ADIE), MT6631)
 LOCAL_CFLAGS += -DMTK_CONSYS_ADIE_6631
 endif
 
-ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
+ifneq ($(filter eng,$(TARGET_BUILD_VARIANT)),)
 LOCAL_CFLAGS += -DBD_ADDR_AUTOGEN
 endif
 
