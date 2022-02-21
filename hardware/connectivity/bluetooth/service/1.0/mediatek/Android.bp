@@ -9,7 +9,6 @@ cc_library_static {
     ],
 
     srcs: [
-        "hci_hal_debugger.cc",
         "hci_hal_msg_handler.cc",
         "hci_hal_state_machine.cc",
     ],

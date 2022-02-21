@@ -26,7 +26,6 @@
 #include "bluetooth_address.h"
 #include "h4_protocol.h"
 #include "mct_protocol.h"
-#include "mediatek/hci_hal_debugger.h"
 
 static const char* VENDOR_LIBRARY_NAME = "libbt-vendor.so";
 static const char* VENDOR_LIBRARY_SYMBOL_NAME =
@@ -136,11 +135,6 @@ const bt_vendor_callbacks_t lib_callbacks = {
     a2dp_offload_cb};
 
 }  // namespace
-
-#if defined(MTK_BT_HAL_H4_DEBUG) && (TRUE == MTK_BT_HAL_H4_DEBUG)
-using vendor::mediatek::bluetooth::hal::BtHciDebugger;
-using vendor::mediatek::bluetooth::hal::BtHciDebugBulletin;
-#endif
 
 namespace android {
 namespace hardware {
@@ -272,14 +266,6 @@ bool VendorInterface::Open(InitializeCompleteCallback initialize_complete_cb,
   // Initially, the power management is off.
   lpm_wake_deasserted = true;
 
-#if defined(MTK_BT_HAL_H4_DEBUG) && (TRUE == MTK_BT_HAL_H4_DEBUG)
-  if (fd_list[0] != INVALID_FD) {
-    BtHciDebugger::GetInstance()->RefreshHalDebugState();
-    BtHciDebugBulletin::GetInstance()->AddObserver(
-        BtHciDebugger::GetInstance());
-    BtHciDebugger::GetInstance()->RefreshVendorInterface(lib_interface_);
-  }
-#endif
   // Start configuring the firmware
   firmware_startup_timer_ = new FirmwareStartupTimer();
   lib_interface_->op(BT_VND_OP_FW_CFG, nullptr);
